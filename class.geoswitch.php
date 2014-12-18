@@ -75,12 +75,12 @@ class GeoSwitch {
     }
 
     public static function get_state_cookie(){
-        return self::existing_state_cookie() ? $_COOKIE[self::$cookie_name] : array();
+        return self::existing_state_cookie() ? $_COOKIE[self::$cookie_name] : null;
     }
 
     public static function set_state_cookie($cookie_data){
-        setcookie(self::$cookie_name+"[code]", $cookie_data['code'], time() + (86400 * 3000)); // 86400 = 1 day
-        setcookie(self::$cookie_name+"[name]", $cookie_data['name'], time() + (86400 * 3000)); // 86400 = 1 day
+        setcookie(self::$cookie_name."[code]", $cookie_data['code'], time() + (86400 * 3000), COOKIEPATH); // 86400 = 1 day
+        setcookie(self::$cookie_name."[name]", $cookie_data['name'], time() + (86400 * 3000), COOKIEPATH); // 86400 = 1 day
     }
 
 	public static function switch_case($atts, $content) {
