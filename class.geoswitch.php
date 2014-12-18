@@ -86,8 +86,7 @@ class GeoSwitch {
 	public static function switch_case($atts, $content) {
         $expandedContent = do_shortcode($content);
 
-        if (is_null(self::$record)) {
-
+        if (!self::existing_state_cookie() && is_null(self::$record)) {
             if (!empty($atts['state']) ||
                 !empty($atts['state_code'])) {
                     return '';
@@ -105,23 +104,23 @@ class GeoSwitch {
     }
 
     public static function get_state($atts, $content) {
-        if (is_null(self::$record)) {
-            return '?';
-        }
         if(self::existing_state_cookie()){
             return self::get_state_cookie()['name'];
         }else{
+            if (is_null(self::$record)) {
+                return '?';
+            }
             return self::$record->mostSpecificSubdivision->name;
         }
     }
 
     public static function get_state_code($atts, $content) {
-        if (is_null(self::$record)) {
-            return '?';
-        }
         if(self::existing_state_cookie()){
             return self::get_state_cookie()['code'];
         }else{
+            if (is_null(self::$record)) {
+                return '?';
+            }
             return self::$record->mostSpecificSubdivision->isoCode;
         }
     }
