@@ -1,0 +1,19 @@
+{
+  "name": "geoswitch",
+  "version": "1.0.1",
+  "homepage": "https://github.com/thinkthroughmath/ttm-wp-geoswitch",
+  "description": "TTM Version of Geoswitch WP plugin",
+  "authors": [
+    "Paul Scarrone",
+    "Carl Capozza",
+    "elialgranti"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
