@@ -105,7 +105,8 @@ class GeoSwitch {
 
     public static function get_state($atts, $content) {
         if(self::existing_state_cookie()){
-            return self::get_state_cookie()['name'];
+            $state_cookie = self::get_state_cookie();
+            return $state_cookie['name'];
         }else{
             if (is_null(self::$record)) {
                 return '?';
@@ -116,7 +117,8 @@ class GeoSwitch {
 
     public static function get_state_code($atts, $content) {
         if(self::existing_state_cookie()){
-            return self::get_state_cookie()['code'];
+            $state_cookie = self::get_state_cookie();
+            return $state_cookie()['code'];
         }else{
             if (is_null(self::$record)) {
                 return '?';
