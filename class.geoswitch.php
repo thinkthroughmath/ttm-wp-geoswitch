@@ -79,9 +79,10 @@ class GeoSwitch {
     }
 
     public static function set_state_cookie($cookie_data){
-	$host = bloginfo('url');    
-	setcookie(self::$cookie_name."[code]", $cookie_data['code'], time() + (86400 * 3000), COOKIEPATH, $host); // 86400 = 1 day
-        setcookie(self::$cookie_name."[name]", $cookie_data['name'], time() + (86400 * 3000), COOKIEPATH, $host); // 86400 = 1 day
+	$wp_url = site_url();
+	$wp_domain = substr($wp_url, 7); 
+	setcookie(self::$cookie_name."[code]", $cookie_data['code'], time() + (86400 * 3000), COOKIEPATH, $wp_domain); // 86400 = 1 day
+        setcookie(self::$cookie_name."[name]", $cookie_data['name'], time() + (86400 * 3000), COOKIEPATH, $wp_domain); // 86400 = 1 day
     }
 
 	public static function switch_case($atts, $content) {
