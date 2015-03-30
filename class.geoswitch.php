@@ -25,21 +25,6 @@ class GeoSwitch {
 
         self::$state_cookie = self::get_state_cookie();
 
-        if(is_null(self::$state_cookie)){
-            try {
-                $opt = get_option('geoswitch_options');
-                $useKM = ($opt['units'] == 'km');
-                self::$data_source = self::request_record($opt);
-                self::$record = self::$data_source->city(self::$user_ip);
-                $state_info = array();
-                $state_info['name'] = self::get_state(null, null);
-                $state_info['code'] = self::get_state_code(null, null);
-                self::set_state_cookie($state_info);
-            } catch (Exception $e) {
-                self::$record = null;
-            }
-        }
-
         add_shortcode('geoswitch', array( 'GeoSwitch', 'switch_block' ));
         add_shortcode('geoswitch_case', array( 'GeoSwitch', 'switch_case' ));
 
