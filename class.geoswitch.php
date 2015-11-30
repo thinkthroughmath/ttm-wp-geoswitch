@@ -25,21 +25,6 @@ class GeoSwitch {
 
         self::$state_cookie = self::get_state_cookie();
 
-        if(is_null(self::$state_cookie)){
-            try {
-                $opt = get_option('geoswitch_options');
-                $useKM = ($opt['units'] == 'km');
-                self::$data_source = self::request_record($opt);
-                self::$record = self::$data_source->city(self::$user_ip);
-                $state_info = array();
-                $state_info['name'] = self::get_state(null, null);
-                $state_info['code'] = self::get_state_code(null, null);
-                self::set_state_cookie($state_info);
-            } catch (Exception $e) {
-                self::$record = null;
-            }
-        }
-
         add_shortcode('geoswitch', array( 'GeoSwitch', 'switch_block' ));
         add_shortcode('geoswitch_case', array( 'GeoSwitch', 'switch_case' ));
 
@@ -76,13 +61,6 @@ class GeoSwitch {
 
     public static function get_state_cookie(){
         return self::existing_state_cookie() ? $_COOKIE[self::$cookie_name] : null;
-    }
-
-    public static function set_state_cookie($cookie_data){
-	$wp_url = site_url();
-	$wp_domain = substr($wp_url, 7); 
-	setcookie(self::$cookie_name."[code]", $cookie_data['code'], time() + (86400 * 3000), COOKIEPATH, $wp_domain); // 86400 = 1 day
-        setcookie(self::$cookie_name."[name]", $cookie_data['name'], time() + (86400 * 3000), COOKIEPATH, $wp_domain); // 86400 = 1 day
     }
 
 	public static function switch_case($atts, $content) {
